@@ -13,6 +13,10 @@ class TodoCreate(TodoBase):
     complete: bool = False
     owner_id: int
 
+class TodoRequest(TodoBase):  # Add this model
+    priority: int = 0
+    complete: bool = False
+
 class Todo(TodoBase):
     id: int
 
