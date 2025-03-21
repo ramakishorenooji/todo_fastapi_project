@@ -127,7 +127,6 @@ const loginForm = document.getElementById("loginForm");
 if (loginForm) {
   loginForm.addEventListener("submit", async function (event) {
     event.preventDefault(); // Prevent default form submission
-    console.log("Login form submitted"); // Debugging log
 
     const form = event.target;
     const formData = new FormData(form);
@@ -138,7 +137,6 @@ if (loginForm) {
     }
 
     try {
-      console.log("Sending request to /auth/token"); // Debugging log
       const response = await fetch("/auth/token", {
         method: "POST",
         headers: {
@@ -149,7 +147,6 @@ if (loginForm) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login successful:", data); // Debugging log
         document.cookie = `access_token=${data.access_token}; path=/`;
         window.location.href = "/todos/todo-page"; // Redirect to the todo page
       } else {
