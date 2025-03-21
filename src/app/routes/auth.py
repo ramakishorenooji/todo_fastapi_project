@@ -57,7 +57,7 @@ templates = Jinja2Templates(directory="templates")
 def render_login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-@auth_router.get("/register-page")
+@auth_router.get("/register")
 def render_register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
@@ -116,10 +116,10 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
                                  db: db_dependency):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
+        print("Authentication failed")  # Debugging log
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate user.')
     token = create_access_token(user.username, user.id, user.role, timedelta(minutes=20))
-
     return {'access_token': token, 'token_type': 'bearer'}
 
 
